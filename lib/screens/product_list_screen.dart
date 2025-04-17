@@ -1,8 +1,8 @@
-import 'package:ecom_app/product_card.dart';
-import 'package:ecom_app/product_details_screen.dart';
+import 'package:ecom_app/widgets/product_card.dart';
+import 'package:ecom_app/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'global_variables.dart';
+import '../global_variables.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
