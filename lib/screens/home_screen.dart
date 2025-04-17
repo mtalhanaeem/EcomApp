@@ -1,5 +1,5 @@
-import 'package:ecom_app/cart_screen.dart';
-import 'package:ecom_app/product_list_screen.dart';
+import 'package:ecom_app/screens/cart_screen.dart';
+import 'package:ecom_app/screens/product_list_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {

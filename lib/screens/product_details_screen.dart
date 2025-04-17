@@ -1,4 +1,6 @@
+import 'package:ecom_app/providers/cart_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Map<String, Object> product;
@@ -39,7 +41,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           /** Middle Image */
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Image.asset(widget.product['imageUrl'] as String),
+            child: Image.asset(
+              widget.product['imageUrl'] as String,
+              height: 250,
+            ),
           ),
           Spacer(flex: 2),
           /** Bottom Container */
@@ -77,7 +82,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
                             onTap: () {
-
+                              setState(() {
+                                selectedSize = size;
+                              });
                             },
                             child: Chip(
                               label: Text(size.toString()),
@@ -100,10 +107,30 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       color: Colors.black,
                       size: 24.0,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (selectedSize != 0) {
+                        Provider.of<CartProvider>(context, listen: false)
+                            .addProduct(
+                          {
+                            'id': widget.product['id'],
+                            'title': widget.product['title'],
+                            'price': widget.product['price'],
+                            'imageUrl': widget.product['imageUrl'],
+                            'company': widget.product['company'],
+                            'size': selectedSize,
+                          },
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Product Added Successfully")));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Please select a size")));
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).colorScheme.primary,
                       minimumSize: Size(double.infinity, 50),
+                      overlayColor: Colors.black12,
                     ),
                     label: Text(
                       'Add To Cart',
